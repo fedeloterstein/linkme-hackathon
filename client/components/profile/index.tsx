@@ -26,7 +26,7 @@ export const Profile = () => {
         </Heading>
         <LinkIcon />
       </HStack>
-      <Text mb={'14px'} fontWeight={400} fontSize={'14px'}>GM! 👋 I'm a Product Designer 🇲🇽</Text>
+      <Text mb={'14px'} fontWeight={400} fontSize={'14px'}>GM! 👋 I am a Product Designer 🇲🇽</Text>
       <Button
         leftIcon={<EmailIcon />}
         bgGradient={"linear(to-r, #FF692D, #E856E0, #4D67FA)"}
