@@ -12,7 +12,7 @@ import React from "react";
 
 export const Profile = () => {
   return (
-    <Stack alignItems={"center"} m={"28px 68px 64px 68px"} h={"392px"}>
+    <Stack alignItems={"center"} m={"28px 68px 64px 68px"}>
       <Avatar mb={"22px"} w={"108px"} h={"108px"} />
       <HStack>
         <Heading
