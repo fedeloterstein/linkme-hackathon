@@ -15,50 +15,50 @@ export const FollowMe = () => {
       <Text fontWeight={700} fontSize={"18px"} mb={"23px"}>
         🤙 Follow me
       </Text>
-      <SimpleGrid columns={[2, 3]} spacing={10}>
+      <SimpleGrid columns={[2, 3]} spacing={1}>
         <Box
-          height={"166px"}
-          width={"166px"}
+          height={"160px"}
+          width={"160px"}
           backgroundImage={twitterLogo}
           bgRepeat="no-repeat"
           bgSize="cover"
           bgPosition="center"
         ></Box>
         <Box
-          height={"166px"}
-          width={"166px"}
+          height={"160px"}
+          width={"160px"}
           backgroundImage={ensLogo}
           bgRepeat="no-repeat"
           bgSize="cover"
           bgPosition="center"
         ></Box>
         <Box
-          height={"166px"}
-          width={"166px"}
+          height={"160px"}
+          width={"160px"}
           backgroundImage={notionLogo}
           bgRepeat="no-repeat"
           bgSize="cover"
           bgPosition="center"
         ></Box>
         <Box
-          height={"166px"}
-          width={"166px"}
+          height={"160px"}
+          width={"160px"}
           backgroundImage={telegramLogo}
           bgRepeat="no-repeat"
           bgSize="cover"
           bgPosition="center"
         ></Box>
         <Box
-          height={"166px"}
-          width={"166px"}
+          height={"160px"}
+          width={"160px"}
           backgroundImage={lensLogo}
           bgRepeat="no-repeat"
           bgSize="cover"
           bgPosition="center"
         ></Box>
         <Box
-          height={"166px"}
-          width={"166px"}
+          height={"160px"}
+          width={"160px"}
           backgroundImage={twichLogo}
           bgRepeat="no-repeat"
           bgSize="cover"
