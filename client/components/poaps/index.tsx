@@ -16,7 +16,7 @@ export const Poaps = () => {
   return (
     <Stack p={'25px'}>
       <Text fontWeight={700} fontSize={'18px'} mb={'23px'} display={'flex'}><PoapIcon /> POAPs</Text>
-      <SimpleGrid columns={3} spacing={3}>
+      <SimpleGrid columns={3} spacing={5} alignSelf={'flex-start'}>
         <Box   height={"108px"}
           width={"108px"}
           backgroundImage={poap1}

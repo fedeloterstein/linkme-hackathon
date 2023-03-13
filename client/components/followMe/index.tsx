@@ -15,56 +15,27 @@ export const FollowMe = () => {
       <Text fontWeight={700} fontSize={"18px"} mb={"23px"}>
         🤙 Follow me
       </Text>
-      <SimpleGrid columns={[2, 3]} spacing={1}>
-        <Box
-          height={"160px"}
-          width={"160px"}
-          backgroundImage={twitterLogo}
-          bgRepeat="no-repeat"
-          bgSize="cover"
-          bgPosition="center"
-        ></Box>
-        <Box
-          height={"160px"}
-          width={"160px"}
-          backgroundImage={ensLogo}
-          bgRepeat="no-repeat"
-          bgSize="cover"
-          bgPosition="center"
-        ></Box>
-        <Box
-          height={"160px"}
-          width={"160px"}
-          backgroundImage={notionLogo}
-          bgRepeat="no-repeat"
-          bgSize="cover"
-          bgPosition="center"
-        ></Box>
-        <Box
-          height={"160px"}
-          width={"160px"}
-          backgroundImage={telegramLogo}
-          bgRepeat="no-repeat"
-          bgSize="cover"
-          bgPosition="center"
-        ></Box>
-        <Box
-          height={"160px"}
-          width={"160px"}
-          backgroundImage={lensLogo}
-          bgRepeat="no-repeat"
-          bgSize="cover"
-          bgPosition="center"
-        ></Box>
-        <Box
-          height={"160px"}
-          width={"160px"}
-          backgroundImage={twichLogo}
-          bgRepeat="no-repeat"
-          bgSize="cover"
-          bgPosition="center"
-        ></Box>
+      <SimpleGrid columns={[2, 3]} spacing={5} alignSelf={"flex-start"}>
+       <FollowMeCard logo={twitterLogo}/>
+       <FollowMeCard logo={notionLogo}/>
+       <FollowMeCard logo={ensLogo}/>
+       <FollowMeCard logo={lensLogo}/>
+       <FollowMeCard logo={telegramLogo}/>
+       <FollowMeCard logo={twichLogo}/>
       </SimpleGrid>
     </Stack>
+  );
+};
+
+const FollowMeCard = ({ logo }: any) => {
+  return (
+    <Box
+      height={"160px"}
+      width={"160px"}
+      backgroundImage={logo}
+      bgRepeat="no-repeat"
+      bgSize="cover"
+      bgPosition="center"
+    ></Box>
   );
 };

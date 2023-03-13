@@ -1,6 +1,7 @@
 import { EmailIcon, LinkIcon } from "@chakra-ui/icons";
 import {
   Avatar,
+  Box,
   Button,
   Heading,
   HStack,
@@ -10,10 +11,30 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
+const origin = typeof window === "undefined" ? "" : window.location.origin;
+const avatar = `${origin}/avatar.png`;
+
 export const Profile = () => {
   return (
     <Stack alignItems={"center"} m={"28px 68px 64px 68px"}>
-      <Avatar mb={"22px"} w={"108px"} h={"108px"} />
+      <Box>
+        <Avatar mb={"22px"} w={"108px"} h={"108px"} src={avatar}>
+          <Stack
+            bgColor={"red"}
+            h={"24px"}
+            w={"24px"}
+            position={"absolute"}
+            right={"10px"}
+            bottom={"10px"}
+            borderRadius={"50px"}
+            bgGradient={"linear(to-r, #FF692D, #E856E0, #4D67FA)"}
+            alignItems={"center"}
+            justify={"center"}
+          >
+            <Text>+</Text>
+          </Stack>
+        </Avatar>
+      </Box>
       <HStack>
         <Heading
           mb={"3px"}
@@ -26,7 +47,9 @@ export const Profile = () => {
         </Heading>
         <LinkIcon />
       </HStack>
-      <Text mb={'14px'} fontWeight={400} fontSize={'14px'}>GM! 👋 I am a Product Designer 🇲🇽</Text>
+      <Text mb={"14px"} fontWeight={400} fontSize={"14px"}>
+        GM! 👋 I am a Product Designer 🇲🇽
+      </Text>
       <Button
         leftIcon={<EmailIcon />}
         bgGradient={"linear(to-r, #FF692D, #E856E0, #4D67FA)"}
