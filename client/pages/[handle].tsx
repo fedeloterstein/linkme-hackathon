@@ -17,7 +17,7 @@ export default function Handle() {
         m={'48px 5px 24px 5px'}
         borderRadius={'30px'}
       >
-        <GridItem gridArea={['1 / 1 / 2 / 13',null,'1 / 1 / 3 / 4']}><Profile /></GridItem>
+        <GridItem gridArea={['1 / 1 / 2 / 13',null,'1 / 1 / 3 / 4']} alignSelf={['center', 'flex-start']}><Profile /></GridItem>
         <GridItem gridArea={['2 / 1 / 3 / 13',null,'1 / 4 / 2 / 9']}><FollowMe /></GridItem>
         <GridItem gridArea={['4 / 1 / 5 / 13',null,'2 / 4 / 3 / 9']}><Works /></GridItem>
         <GridItem  gridArea={['3 / 1 / 4 / 13',null,'1 / 9 / 2 / 13']}><Poaps /></GridItem>
