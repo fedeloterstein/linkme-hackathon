@@ -11,7 +11,7 @@ export const Works = () => {
       <Text fontWeight={700} fontSize={"18px"} mb={"23px"}>
         🏆 Work
       </Text>
-      <SimpleGrid columns={[2, 3]} spacing={[1, 10]} alignSelf={"flex-start"}>
+      <SimpleGrid columns={[2, 2, 3]} spacing={[1, 10]} alignSelf={["center", "center","flex-start"]}>
         <WorksCard logo={logo2} />
         <WorksCard logo={logo1} />
         <NewWorksCard />

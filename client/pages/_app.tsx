@@ -10,6 +10,8 @@ import {
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { polygonMumbai} from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
+import { Provider } from 'react-redux'
+import { store } from '@/app/store';
 
 const { chains, provider } = configureChains(
   [polygonMumbai],
@@ -40,6 +42,7 @@ const theme = extendTheme({ config })
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
+    <Provider store={store}>
     <ChakraProvider theme={theme}>
       <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains}>
@@ -47,5 +50,6 @@ export default function App({ Component, pageProps }: AppProps) {
         </RainbowKitProvider>
       </WagmiConfig>
     </ChakraProvider>
+    </Provider>
   )
 }
