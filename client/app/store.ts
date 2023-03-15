@@ -1,3 +1,4 @@
+import coolLinksSlice from '@/src/features/coolLinksSlice'
 import followsMeReducer from '@/src/features/followsMeSlice'
 import worksSlice from '@/src/features/worksSlice'
 import { configureStore } from '@reduxjs/toolkit'
@@ -5,7 +6,8 @@ import { configureStore } from '@reduxjs/toolkit'
 export const store = configureStore({
   reducer: {
     followMe: followsMeReducer,
-    works: worksSlice
+    works: worksSlice,
+    coolLinks: coolLinksSlice
   },
 })
 

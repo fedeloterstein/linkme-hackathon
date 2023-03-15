@@ -116,7 +116,7 @@ const WorksModal = ({ onClose, isOpen }: any) => {
       <ModalOverlay />
       <ModalContent
         minW={"527pxpx"}
-        minH={"500px"}
+        minH={"400px"}
         border={"2px solid #E856E0"}
         borderRadius={"30px"}
       >
