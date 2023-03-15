@@ -20,9 +20,6 @@ import { useDispatch, useSelector } from "react-redux";
 export const Works = () => {
 
   const works = useSelector((state: any) => state.works);
-  console.log(
-works
-  );
   
   return (
     <Stack p={"25px"}>
@@ -47,7 +44,7 @@ const WorksCard = ({ work }: any) => {
   return (
     <Stack
       h={"350px"}
-      w={"166px"}
+      maxW={"166px"}
       backgroundImage={work.urlImage}
       bgRepeat="no-repeat"
       bgSize="cover"
@@ -55,6 +52,7 @@ const WorksCard = ({ work }: any) => {
       p={"20px"}
       borderRadius={"30px"}
       border={"2px solid rgba(255, 255, 255, 0.3)"}
+      gap={5}
     >
       <Stack
         border={"2px solid #E856E0"}
@@ -64,17 +62,15 @@ const WorksCard = ({ work }: any) => {
         alignItems={"center"}
         justify={"center"}
         backgroundColor={"white"}
-        mb={"178px"}
-        position={"relative"}
       >
         <Text fontWeight={500} fontSize={"24px"}>
           👻
         </Text>
       </Stack>
-      <Heading fontWeight={800} fontSize={"24px"}>
+      <Heading fontWeight={800} fontSize={"24px"} position={'relative'} top={'130px'}>
         {work.title}
       </Heading>
-      <Text fontWeight={500} fontSize={"12px"}>
+      <Text fontWeight={500} fontSize={"12px"} position={'relative'} top={'110px'}>
       {work.description}
       </Text>
     </Stack>
@@ -86,7 +82,7 @@ const NewWorksCard = () => {
   return (
     <Stack
       h={"350px"}
-      w={"166px"}
+      maxW={"166px"}
       p={"20px"}
       border={"2px solid rgba(255, 255, 255, 0.3)"}
       borderRadius={"30px"}
@@ -104,7 +100,7 @@ const NewWorksCard = () => {
 const WorksModal = ({ onClose, isOpen }: any) => {
   const dispatch = useDispatch();
   const [data, setdata] = useState({
-    urlImage: "https://images.pexels.com/photos/2078147/pexels-photo-2078147.jpeg?auto=compress&cs=tinysrgb&w=600",
+    urlImage: "https://images.pexels.com/photos/7147491/pexels-photo-7147491.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     title: "Mi Portafolio",
     description: "Mira mis diseños",
     urlLink: "https://ethglobal.com/",

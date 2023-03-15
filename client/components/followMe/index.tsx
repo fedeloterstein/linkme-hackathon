@@ -40,6 +40,7 @@ export const FollowMe = () => {
         columns={[2, 2, 3]}
         spacing={5}
         alignSelf={["center", "center", "flex-start"]}
+        gap={5}
       >
         {followMeLinks &&
           followMeLinks.map((link: any) => (
@@ -58,8 +59,8 @@ export const FollowMe = () => {
 const FollowMeCard = ({ logo, name }: any) => {
   return (
     <Box
-      height={"160px"}
-      width={"160px"}
+      maxW={"160px"}
+      h={"160px"}
       backgroundImage={logo}
       bgRepeat="no-repeat"
       bgSize="cover"

@@ -9,7 +9,12 @@ export interface FollowsMeState {
 }
 
 const initialState: FollowsMeState[] = [
-  
+  {
+    id: uuid(),
+    name: "ethGlobal.com",
+    urlImage: "/redes/custom.png",
+    urlLink: "https://ethglobal.com/",
+  }
 ]
 
 export const followMeSlice = createSlice({
