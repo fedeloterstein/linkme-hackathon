@@ -3,29 +3,36 @@ import { v4 as uuid } from 'uuid';
 
 export interface WorksState {
     id: string;
-  name: string;
-  urlImage: string;
+  title: string;
+  description: string;
   urlLink: string;
+  urlImage: string;
 }
 
 const initialState: WorksState[] = [
-  
+  {
+    id: uuid(),
+    urlImage: "https://images.pexels.com/photos/57690/pexels-photo-57690.jpeg?auto=compress&cs=tinysrgb&w=600",
+    title: "Mi Portafolio",
+    description: "Mira mis diseños",
+    urlLink: "https://ethglobal.com/",
+  }
 ]
 
 export const worksSlice = createSlice({
   name: 'works',
   initialState,
   reducers: {
-      addFollowMe: (state, action) => {
-       const newFollowMe = action.payload
-       newFollowMe.id = uuid()
-        state.push(newFollowMe)
+      addWork: (state, action) => {
+       const newWork = action.payload
+       newWork.id = uuid()
+        state.push(newWork)
         
       }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { addFollowMe } = worksSlice.actions
+export const { addWork } = worksSlice.actions
 
 export default worksSlice.reducer

@@ -1,3 +1,4 @@
+
 import PoapIcon from "@/assets/icons/PoapIcon";
 import { Box, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import React from "react";

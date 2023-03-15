@@ -1,7 +1,5 @@
-import PushIcon from "@/assets/icons/PushIcon";
-import { addFollowMe } from "@/src/features/followsMeSlice";
+import { addWork } from "@/src/features/worksSlice";
 import {
-  Box,
   Button,
   Heading,
   Input,
@@ -17,13 +15,15 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-
-const origin = typeof window === "undefined" ? "" : window.location.origin;
-const logo1 = `${origin}/works/work1.png`;
-const logo2 = `${origin}/works/work2.png`;
+import { useDispatch, useSelector } from "react-redux";
 
 export const Works = () => {
+
+  const works = useSelector((state: any) => state.works);
+  console.log(
+works
+  );
+  
   return (
     <Stack p={"25px"}>
       <Text fontWeight={700} fontSize={"18px"} mb={"23px"}>
@@ -34,24 +34,27 @@ export const Works = () => {
         spacing={[1, 10]}
         alignSelf={["center", "center", "flex-start"]}
       >
-        <WorksCard logo={logo2} />
-        <WorksCard logo={logo1} />
+        {works && works.map((work:any) => (
+          <WorksCard work={work} key={work.id}/>
+        ))}
         <NewWorksCard />
       </SimpleGrid>
     </Stack>
   );
 };
 
-const WorksCard = ({ logo }: any) => {
+const WorksCard = ({ work }: any) => {
   return (
     <Stack
       h={"350px"}
       w={"166px"}
-      backgroundImage={logo}
+      backgroundImage={work.urlImage}
       bgRepeat="no-repeat"
       bgSize="cover"
       bgPosition="center"
       p={"20px"}
+      borderRadius={"30px"}
+      border={"2px solid rgba(255, 255, 255, 0.3)"}
     >
       <Stack
         border={"2px solid #E856E0"}
@@ -69,10 +72,10 @@ const WorksCard = ({ logo }: any) => {
         </Text>
       </Stack>
       <Heading fontWeight={800} fontSize={"24px"}>
-        Title
+        {work.title}
       </Heading>
       <Text fontWeight={500} fontSize={"12px"}>
-        Description
+      {work.description}
       </Text>
     </Stack>
   );
@@ -101,14 +104,15 @@ const NewWorksCard = () => {
 const WorksModal = ({ onClose, isOpen }: any) => {
   const dispatch = useDispatch();
   const [data, setdata] = useState({
-    name: "@juanma",
-    urlImage: "/redes/lens.png",
+    urlImage: "https://images.pexels.com/photos/2078147/pexels-photo-2078147.jpeg?auto=compress&cs=tinysrgb&w=600",
+    title: "Mi Portafolio",
+    description: "Mira mis diseños",
     urlLink: "https://ethglobal.com/",
   });
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    dispatch(addFollowMe(data));
+    dispatch(addWork(data));
     onClose();
   };
   return (
@@ -130,7 +134,7 @@ const WorksModal = ({ onClose, isOpen }: any) => {
             bgClip="text"
             bgGradient="linear(to-r, rgba(255, 105, 45, 1), rgba(232, 86, 224, 1), rgba(77, 103, 250, 1))"
           >
-      + Add Work
+      + Add Work 
           </Text>
         </ModalHeader>
         <ModalCloseButton />
@@ -164,19 +168,10 @@ const WorksModal = ({ onClose, isOpen }: any) => {
               }
             />
               <Input
-              name={"linkUrl"}
-              placeholder="Paste the Link..."
-              mb={"28px"}
-              borderRadius={"30px"}
-              onChange={(e) =>
-                setdata({ ...data, [e.target.name]: e.target.value })
-              }
-            />
-            <Input
-              placeholder="Paste the Link..."
-              mb={"28px"}
-              borderRadius={"30px"}
               name={"urlLink"}
+              placeholder="Paste the Link..."
+              mb={"28px"}
+              borderRadius={"30px"}
               onChange={(e) =>
                 setdata({ ...data, [e.target.name]: e.target.value })
               }

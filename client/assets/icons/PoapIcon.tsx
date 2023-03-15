@@ -1,7 +1,6 @@
 import * as React from "react"
-import { SVGProps } from "react"
 
-const PoapIcon = (props: SVGProps<SVGSVGElement>) => (
+const PoapIcon = (props: any) => (
   <svg
     width={31}
     height={31}
