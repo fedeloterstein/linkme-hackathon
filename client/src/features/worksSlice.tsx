@@ -1,19 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { v4 as uuid } from 'uuid';
 
-export interface FollowsMeState {
+export interface WorksState {
     id: string;
   name: string;
   urlImage: string;
   urlLink: string;
 }
 
-const initialState: FollowsMeState[] = [
+const initialState: WorksState[] = [
   
 ]
 
-export const followMeSlice = createSlice({
-  name: 'followMe',
+export const worksSlice = createSlice({
+  name: 'works',
   initialState,
   reducers: {
       addFollowMe: (state, action) => {
@@ -26,6 +26,6 @@ export const followMeSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { addFollowMe } = followMeSlice.actions
+export const { addFollowMe } = worksSlice.actions
 
-export default followMeSlice.reducer
+export default worksSlice.reducer

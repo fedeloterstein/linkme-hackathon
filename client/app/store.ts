@@ -1,9 +1,11 @@
 import followsMeReducer from '@/src/features/followsMeSlice'
+import worksSlice from '@/src/features/worksSlice'
 import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({
   reducer: {
-    followMe: followsMeReducer
+    followMe: followsMeReducer,
+    works: worksSlice
   },
 })
 
