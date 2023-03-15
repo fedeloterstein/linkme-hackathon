@@ -25,7 +25,7 @@ const [loading, setloading] = useState(false)
     address: '0x064D63F94A6B5Aaf5E7C74576F473fD3F47a1a1f',
     abi: contractAbi.abi,
     eventName: 'NewDonatation',
-    listener(_from, _to, _amount) {
+    listener(_from, _to, _amount: any) {
       setloading(false),
       toast({
         title: '🥳 New Donation',
