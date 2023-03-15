@@ -1,3 +1,4 @@
+import { addFollowMe } from "@/src/features/followsMeSlice";
 import { CloseIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -17,8 +18,8 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const origin = typeof window === "undefined" ? "" : window.location.origin;
 const logoTwitter = `${origin}/redes/twitter.png`;
@@ -80,7 +81,22 @@ const FollowMeCard = ({ logo, name }: any) => {
 
 const NewFollowMe = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const dispatch = useDispatch();
+  const [data, setdata] = useState({
+    name: "@juanma",
+    urlImage: "/redes/lens.png",
+    urlLink: "https://ethglobal.com/",
+  });
 
+  const onClickImage = (urlImage: string) => {
+    setdata({ ...data, ["urlImage"]: urlImage });
+  };
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    dispatch(addFollowMe(data));
+    onClose();
+  };
   return (
     <Stack
       height={"160px"}
@@ -136,6 +152,7 @@ const NewFollowMe = () => {
                     bgPosition="center"
                     h={"64px"}
                     w={"64px"}
+                    onClick={() => onClickImage("/redes/twitter.png")}
                   ></Box>
                   <Text fontWeight={500} fontSize={"10px"}>
                     TWITTER
@@ -149,6 +166,7 @@ const NewFollowMe = () => {
                     bgPosition="center"
                     h={"64px"}
                     w={"64px"}
+                    onClick={() => onClickImage("/redes/lens.png")}
                   ></Box>
                   <Text fontWeight={500} fontSize={"10px"}>
                     LENS
@@ -162,6 +180,7 @@ const NewFollowMe = () => {
                     bgPosition="center"
                     h={"64px"}
                     w={"64px"}
+                    onClick={() => onClickImage("/redes/discord.png")}
                   ></Box>
                   <Text fontWeight={500} fontSize={"10px"}>
                     DISCORD
@@ -175,17 +194,44 @@ const NewFollowMe = () => {
                     bgPosition="center"
                     h={"64px"}
                     w={"64px"}
+                    onClick={() => onClickImage("/redes/custom.png")}
                   ></Box>
                   <Text fontWeight={500} fontSize={"10px"}>
                     CUSTOM
                   </Text>
                 </Stack>
               </HStack>
-              <Input placeholder="@user" mb={"28px"} borderRadius={'30px'}/>
-              <Input placeholder="Paste the Link..." mb={"28px"} borderRadius={'30px'}/>
-              <Button w={"100%"} mb={"28px"} bgGradient={"linear(to-r, #FF692D, #E856E0, #4D67FA)"}  borderRadius={'100px'} fontWeight={700} fontSize={'14px'}>
-                + Add
-              </Button>
+              <form onSubmit={handleSubmit}>
+                <Input
+                  name={"name"}
+                  placeholder="@user"
+                  mb={"28px"}
+                  borderRadius={"30px"}
+                  onChange={(e) =>
+                    setdata({ ...data, [e.target.name]: e.target.value })
+                  }
+                />
+                <Input
+                  placeholder="Paste the Link..."
+                  mb={"28px"}
+                  borderRadius={"30px"}
+                  name={"urlLink"}
+                  onChange={(e) =>
+                    setdata({ ...data, [e.target.name]: e.target.value })
+                  }
+                />
+                <Button
+                  w={"100%"}
+                  mb={"28px"}
+                  bgGradient={"linear(to-r, #FF692D, #E856E0, #4D67FA)"}
+                  borderRadius={"100px"}
+                  fontWeight={700}
+                  fontSize={"14px"}
+                  type={"submit"}
+                >
+                  + Add
+                </Button>
+              </form>
             </ModalBody>
           </ModalContent>
         </Modal>
