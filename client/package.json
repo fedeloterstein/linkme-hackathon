@@ -13,6 +13,7 @@
     "@chakra-ui/react": "^2.5.1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@pushprotocol/restapi": "^0.3.1",
     "@rainbow-me/rainbowkit": "^0.11.0",
     "@reduxjs/toolkit": "^1.9.3",
     "@types/node": "18.14.6",
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "@types/canvas-confetti": "^1.6.0",
-    "canvas-confetti": "^1.6.0"
+    "canvas-confetti": "^1.6.0",
+    "dotenv": "^16.0.3"
   }
 }
