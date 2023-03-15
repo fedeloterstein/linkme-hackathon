@@ -1,27 +1,42 @@
 import { addLink } from "@/src/features/coolLinksSlice";
 import { addWork } from "@/src/features/worksSlice";
-import { Button, HStack, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Stack, Text, useDisclosure } from "@chakra-ui/react";
+import {
+  Button,
+  Center,
+  HStack,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  Stack,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { HexColorPicker } from "react-colorful";
 
 export const CoolLinks = () => {
-
   const coolLinks = useSelector((state: any) => state.coolLinks);
-  
+
   return (
     <Stack p={"25px"}>
       <Text fontWeight={700} fontSize={"18px"} mb={"23px"}>
         🔥 Cool Links
       </Text>
-      {coolLinks && coolLinks.map((link: any) => (
-      <CoolLinkCard link={link} key={link.id}/>
-      ))}
+      {coolLinks &&
+        coolLinks.map((link: any) => (
+          <CoolLinkCard link={link} key={link.id} />
+        ))}
       <NewCoolLink />
     </Stack>
   );
 };
 
-const CoolLinkCard = ({link}: any) => {  
+const CoolLinkCard = ({ link }: any) => {
   return (
     <Stack gap={1}>
       <HStack
@@ -37,7 +52,7 @@ const CoolLinkCard = ({link}: any) => {
           borderRadius={"12px"}
           alignItems={"center"}
           justify={"center"}
-          backgroundColor={'white'}
+          backgroundColor={"white"}
         >
           <Text fontWeight={500} fontSize={"24px"}>
             👻
@@ -65,9 +80,8 @@ const NewCoolLink = () => {
         justify={"center"}
         onClick={onOpen}
       >
-      
-      <Text fontSize={"38px"}>+</Text>
-      <CoolLinkModal isOpen={isOpen} onClose={onClose} />
+        <Text fontSize={"38px"}>+</Text>
+        <CoolLinkModal isOpen={isOpen} onClose={onClose} />
       </HStack>
     </Stack>
   );
@@ -75,15 +89,15 @@ const NewCoolLink = () => {
 
 const CoolLinkModal = ({ onClose, isOpen }: any) => {
   const dispatch = useDispatch();
-  const [data, setdata] = useState( {
+  const [color, setColor] = useState("#aabbcc");
+  const [data, setdata] = useState({
     title: "Check out my CV",
-    urlLink: "https://ethglobal.com/",
-    color: '#FFD83D'
-  },);
+    urlLink: "https://ethglobal.com/"
+  });
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    dispatch(addLink(data));
+    dispatch(addLink({...data, ['color']: color}));
     onClose();
   };
   return (
@@ -105,21 +119,15 @@ const CoolLinkModal = ({ onClose, isOpen }: any) => {
             bgClip="text"
             bgGradient="linear(to-r, rgba(255, 105, 45, 1), rgba(232, 86, 224, 1), rgba(77, 103, 250, 1))"
           >
-      + Add Cool Link
+            + Add Cool Link
           </Text>
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <form onSubmit={handleSubmit}>
-          <Input
-              name={"color"}
-              placeholder="color"
-              mb={"28px"}
-              borderRadius={"30px"}
-              onChange={(e) =>
-                setdata({ ...data, [e.target.name]: e.target.value })
-              }
-            />
+      <Center>
+              <HexColorPicker color={color} onChange={setColor} />
+      </Center>
             <Input
               name={"title"}
               placeholder="Title"
@@ -129,7 +137,7 @@ const CoolLinkModal = ({ onClose, isOpen }: any) => {
                 setdata({ ...data, [e.target.name]: e.target.value })
               }
             />
-              <Input
+            <Input
               name={"urlLink"}
               placeholder="Paste the Link..."
               mb={"28px"}
