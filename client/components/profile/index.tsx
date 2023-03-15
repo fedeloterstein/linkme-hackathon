@@ -7,13 +7,61 @@ import {
   HStack,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
-import React from "react";
+import confetti from "canvas-confetti";
+import { ethers } from "ethers";
+import React, { useState } from "react";
+import { useContractEvent, useContractWrite } from "wagmi";
+import contractAbi from "../../utils/contractABI.json";
 
 const origin = typeof window === "undefined" ? "" : window.location.origin;
 const avatar = `${origin}/avatar.png`;
 
 export const Profile = () => {
+  const toast = useToast()
+const [loading, setloading] = useState(false)
+  useContractEvent({
+    address: '0x064D63F94A6B5Aaf5E7C74576F473fD3F47a1a1f',
+    abi: contractAbi.abi,
+    eventName: 'NewDonatation',
+    listener(_from, _to, _amount) {
+      setloading(false),
+      toast({
+        title: '🥳 New Donation',
+        description: `${_from} donate to 👻${_to} 🤑 ${ethers.utils.formatEther(_amount)} Matic 🌱`,
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+      }),
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    },
+  })
+
+  const { write } = useContractWrite({
+    mode: 'recklesslyUnprepared',
+    address: '0x064D63F94A6B5Aaf5E7C74576F473fD3F47a1a1f',
+    abi: contractAbi.abi,
+    functionName: 'donate',
+    args: ['0x954C869E4e920ca1aE8DaCde6d7C33B279A08d61'],
+    overrides: {
+      value: ethers.utils.parseEther('0.014'),
+    },
+  })
+
+  const onClick = () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    if (write) {
+      write()
+      setloading(true)
+    }
+ 
+  }
+
   return (
     <Stack alignItems={"center"} m={"28px 68px 64px 68px"}>
       <Box>
@@ -56,8 +104,10 @@ export const Profile = () => {
         variant={"solid"}
         minW={"200px"}
         m={"22px 12px"}
+        onClick={onClick}
+        isLoading={loading}
       >
-        Leave a Tip 0.16 Matic
+        Leave a Tip 0.014 Matic
       </Button>
     </Stack>
   );
