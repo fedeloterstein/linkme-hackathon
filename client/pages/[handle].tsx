@@ -4,12 +4,71 @@ import { Layout } from "@/components/layout";
 import { Poaps } from "@/components/poaps";
 import { Profile } from "@/components/profile";
 import { Works } from "@/components/works";
-import { Container, Grid, GridItem } from "@chakra-ui/react";
-import React from "react";
+import { Container, Grid, GridItem, Stack, Text } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 const origin = typeof window === "undefined" ? "" : window.location.origin;
 const bgProfile = `${origin}/bg-profile.png`;
+import { Spinner } from "@chakra-ui/react";
+import { BigLogo } from "@/assets/logos/BigLogo";
+import { useContractRead } from "wagmi";
+import contractAbi from "../utils/contractABI.json";
+import { useRouter } from "next/router";
 
 export default function Handle() {
+  const [loading, setloading] = useState(true);
+  const router = useRouter();
+  const [handleId, sethandleId] = useState<any>("");
+  useEffect(() => {
+    if (router.isReady) {
+      const { handle } = router.query;
+      console.log("listo", handle);
+      sethandleId(handle);
+      setloading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.isReady]);
+
+  const { data, isError, isLoading } = useContractRead({
+    address: "0x064D63F94A6B5Aaf5E7C74576F473fD3F47a1a1f",
+    abi: contractAbi.abi,
+    functionName: "ValidHandle",
+    args: [handleId],
+  });
+  if (isLoading || loading) {
+    return (
+      <Stack
+        height={"100vh"}
+        justify={"center"}
+        align={"center"}
+        backgroundImage={bgProfile}
+        bgRepeat="no-repeat"
+        bgSize="cover"
+        bgPosition="center"
+        backgroundColor={"black"}
+      >
+        <BigLogo />
+        <Spinner size="xl" />
+      </Stack>
+    );
+  }
+
+  if (!data === false) {
+    return (
+      <Stack
+        height={"100vh"}
+        justify={"center"}
+        align={"center"}
+        backgroundImage={bgProfile}
+        bgRepeat="no-repeat"
+        bgSize="cover"
+        bgPosition="center"
+        backgroundColor={"black"}
+      >
+        <BigLogo />
+        <Text>El dominio no existe</Text>
+      </Stack>
+    );
+  }
   return (
     <Layout>
       <Grid
