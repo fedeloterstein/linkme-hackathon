@@ -4,7 +4,7 @@ import { Layout } from "@/components/layout";
 import { Poaps } from "@/components/poaps";
 import { Profile } from "@/components/profile";
 import { Works } from "@/components/works";
-import { Container, Grid, GridItem, Stack, Text } from "@chakra-ui/react";
+import { Button, Container, Grid, GridItem, Link as LinkC, Stack, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 const origin = typeof window === "undefined" ? "" : window.location.origin;
 const bgProfile = `${origin}/bg-profile.png`;
@@ -13,6 +13,7 @@ import { BigLogo } from "@/assets/logos/BigLogo";
 import { useContractRead } from "wagmi";
 import contractAbi from "../utils/contractABI.json";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function Handle() {
   const [loading, setloading] = useState(true);
@@ -34,6 +35,8 @@ export default function Handle() {
     functionName: "ValidHandle",
     args: [handleId],
   });
+
+  
   if (isLoading || loading) {
     return (
       <Stack
@@ -66,6 +69,16 @@ export default function Handle() {
       >
         <BigLogo />
         <Text>El dominio no existe</Text>
+        <LinkC as={Link}
+             
+                p={"0px 20px"}
+                color={"white"}
+                boxShadow={"0px 4px 20px 0px rgba(0, 0, 0, 0.25)"}
+                href={'/'}
+              >
+                Ir a la Home
+              </LinkC>
+
       </Stack>
     );
   }
