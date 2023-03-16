@@ -4,7 +4,17 @@ import { Layout } from "@/components/layout";
 import { Poaps } from "@/components/poaps";
 import { Profile } from "@/components/profile";
 import { Works } from "@/components/works";
-import { Button, Container, Grid, GridItem, Link as LinkC, Stack, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Center,
+  Container,
+  Grid,
+  GridItem,
+  HStack,
+  Link as LinkC,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 const origin = typeof window === "undefined" ? "" : window.location.origin;
 const bgProfile = `${origin}/bg-profile.png`;
@@ -14,11 +24,14 @@ import { useContractRead } from "wagmi";
 import contractAbi from "../utils/contractABI.json";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import SmallLogo from "@/assets/logos/SmallLogo";
+import XsLogo from "@/assets/logos/XsLogo";
 
 export default function Handle() {
   const [loading, setloading] = useState(true);
   const router = useRouter();
   const [handleId, sethandleId] = useState<any>("");
+  
   useEffect(() => {
     if (router.isReady) {
       const { handle } = router.query;
@@ -30,13 +43,12 @@ export default function Handle() {
   }, [router.isReady]);
 
   const { data, isError, isLoading } = useContractRead({
-    address: "0x064D63F94A6B5Aaf5E7C74576F473fD3F47a1a1f",
+    address: "0x47B52e28d9831d95c31b6C14c6fe569357D4E995",
     abi: contractAbi.abi,
     functionName: "ValidHandle",
     args: [handleId],
   });
 
-  
   if (isLoading || loading) {
     return (
       <Stack
@@ -49,7 +61,8 @@ export default function Handle() {
         bgPosition="center"
         backgroundColor={"black"}
       >
-        <BigLogo />
+        <Link href={'/'}><BigLogo /></Link>
+      
         <Spinner size="xl" />
       </Stack>
     );
@@ -69,16 +82,15 @@ export default function Handle() {
       >
         <BigLogo />
         <Text>El dominio no existe</Text>
-        <LinkC as={Link}
-             
-                p={"0px 20px"}
-                color={"white"}
-                boxShadow={"0px 4px 20px 0px rgba(0, 0, 0, 0.25)"}
-                href={'/'}
-              >
-                Ir a la Home
-              </LinkC>
-
+        <LinkC
+          as={Link}
+          p={"0px 20px"}
+          color={"white"}
+          boxShadow={"0px 4px 20px 0px rgba(0, 0, 0, 0.25)"}
+          href={"/"}
+        >
+          Ir a la Home
+        </LinkC>
       </Stack>
     );
   }
@@ -114,7 +126,22 @@ export default function Handle() {
         <GridItem gridArea={["5 / 1 / 6 / 13", null, "2 / 9 / 3 / 13"]}>
           <CoolLinks />
         </GridItem>
+        
       </Grid>
+      <Center>
+        <HStack>
+          <Text
+            bgClip="text"
+            bgGradient="linear(to-r, rgba(255, 105, 45, 1), rgba(232, 86, 224, 1), rgba(77, 103, 250, 1))"
+            fontWeight={700}
+            fontSize={"14px"}
+            mb={'8px'}
+          >
+            Make with
+          </Text>
+          <XsLogo />
+        </HStack>
+      </Center>
     </Layout>
   );
 }

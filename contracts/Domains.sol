@@ -21,6 +21,7 @@ contract Domains is ERC721URIStorage, Donate, Links {
     mapping(string => address) public domains;
     mapping(string => string) public records;
     mapping(uint => string) public names;
+    uint256 public totalProfiles = 0;
 
     error Unauthorized();
     error AlreadyRegistered();
@@ -114,6 +115,7 @@ contract Domains is ERC721URIStorage, Donate, Links {
         domains[name] = msg.sender;
         names[newRecordId] = name;
         _tokenIds.increment();
+         totalProfiles = totalProfiles + 1;
         emit NewRegisteredDomain(msg.sender, name, _price);
     }
 

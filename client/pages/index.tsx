@@ -23,6 +23,7 @@ import contractAbi from "../utils/contractABI.json";
 import { ethers } from "ethers";
 import { WalletIcon } from "@/assets/icons/Walleticon";
 import confetti from 'canvas-confetti';
+import { FooterHome } from "@/components/footer/FooterHome";
 
 const origin = typeof window === "undefined" ? "" : window.location.origin;
 const bgImageDesktop = `${origin}/home-desktop.png`;
@@ -40,7 +41,7 @@ export default function Home() {
 
   const { write: writeRegister } = useContractWrite({
     mode: "recklesslyUnprepared",
-    address: "0x064D63F94A6B5Aaf5E7C74576F473fD3F47a1a1f",
+    address: "0x47B52e28d9831d95c31b6C14c6fe569357D4E995",
     abi: contractAbi.abi,
     functionName: "register",
     args: [handle],
@@ -50,7 +51,7 @@ export default function Home() {
   });
 
   const { data, isError, isLoading } = useContractRead({
-    address: "0x064D63F94A6B5Aaf5E7C74576F473fD3F47a1a1f",
+    address: "0x47B52e28d9831d95c31b6C14c6fe569357D4E995",
     abi: contractAbi.abi,
     functionName: "ValidHandle",
     args: [handle],
@@ -60,7 +61,7 @@ export default function Home() {
   });
 
   useContractEvent({
-    address: "0x064D63F94A6B5Aaf5E7C74576F473fD3F47a1a1f",
+    address: "0x47B52e28d9831d95c31b6C14c6fe569357D4E995",
     abi: contractAbi.abi,
     eventName: "NewRegisteredDomain",
     listener(_from, _domain, _amount: any) {
@@ -204,6 +205,7 @@ export default function Home() {
           </Link>
           </Stack>
         </HStack>
+        <FooterHome />
       </Stack>
     </>
   );

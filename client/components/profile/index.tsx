@@ -1,4 +1,3 @@
-
 import { EmailIcon, LinkIcon } from "@chakra-ui/icons";
 import {
   Avatar,
@@ -6,6 +5,7 @@ import {
   Button,
   Heading,
   HStack,
+  Image,
   Stack,
   Text,
   useToast,
@@ -16,17 +16,21 @@ import React, { useState } from "react";
 import { useContractEvent, useContractWrite } from "wagmi";
 import contractAbi from "../../utils/contractABI.json";
 import { useSendNotification } from "@/hooks/useSendNotification";
+import PolygonIcon from "@/assets/icons/PolygonIcon";
+import SupportersIcon from "@/assets/icons/SupportersIcons";
+import { useTotalDonationsByAddress } from "@/hooks/useTotalDonationByAddress";
 
 const origin = typeof window === "undefined" ? "" : window.location.origin;
 const avatar = `${origin}/avatar.png`;
-
+const supporters = `${origin}/supporters.png`;
+const totalTips = `${origin}/totalTips.png`;
 export const Profile = () => {
   const toast = useToast();
   const [loading, setloading] = useState(false);
   const { SendPushNotification } = useSendNotification();
-
+  const {totalDonationsByAddress} = useTotalDonationsByAddress('0x954C869E4e920ca1aE8DaCde6d7C33B279A08d61')
   useContractEvent({
-    address: "0x064D63F94A6B5Aaf5E7C74576F473fD3F47a1a1f",
+    address: "0x47B52e28d9831d95c31b6C14c6fe569357D4E995",
     abi: contractAbi.abi,
     eventName: "NewDonatation",
     listener(_from, _to, _amount: any) {
@@ -55,7 +59,7 @@ export const Profile = () => {
 
   const { write } = useContractWrite({
     mode: "recklesslyUnprepared",
-    address: "0x064D63F94A6B5Aaf5E7C74576F473fD3F47a1a1f",
+    address: "0x47B52e28d9831d95c31b6C14c6fe569357D4E995",
     abi: contractAbi.abi,
     functionName: "donate",
     args: ["0x954C869E4e920ca1aE8DaCde6d7C33B279A08d61"],
@@ -107,8 +111,30 @@ export const Profile = () => {
       <Text mb={"14px"} fontWeight={400} fontSize={"14px"}>
         GM! 👋 I am a Product Designer 🇲🇽
       </Text>
+      <HStack pt={'10px'}>
+        <Image alt={""} src={supporters} />
+        <Text
+          fontWeight={600}
+          fontSize={"14px"}
+          bgGradient="linear(to-r, rgba(255, 105, 45, 1), rgba(232, 86, 224, 1), rgba(77, 103, 250, 1))"
+          bgClip={"text"}
+        >
+           {totalDonationsByAddress ? totalDonationsByAddress.toNumber() : 0}  supporters
+        </Text>
+      </HStack>
+      <HStack pt={'10px'} pb={'28px'}>
+        <Image alt={""} src={totalTips} />
+        <Text
+          fontWeight={600}
+          fontSize={"14px"}
+          bgGradient="linear(to-r, rgba(255, 105, 45, 1), rgba(232, 86, 224, 1), rgba(77, 103, 250, 1))"
+          bgClip={"text"}
+        >
+          Total Tips {totalDonationsByAddress ? totalDonationsByAddress.toNumber()*0.014 : 0} 
+        </Text>
+      </HStack>
       <Button
-        leftIcon={<EmailIcon />}
+        leftIcon={<PolygonIcon />}
         bgGradient={"linear(to-r, #FF692D, #E856E0, #4D67FA)"}
         borderRadius={"50px"}
         variant={"solid"}

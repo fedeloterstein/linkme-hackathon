@@ -1,6 +1,6 @@
 
 import PoapIcon from "@/assets/icons/PoapIcon";
-import { Box, SimpleGrid, Stack, Text } from "@chakra-ui/react";
+import { Box, Image, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 
 const origin = typeof window === "undefined" ? "" : window.location.origin;
@@ -12,11 +12,12 @@ const poap5 = `${origin}/poaps/poap5.png`;
 const poap6 = `${origin}/poaps/poap6.png`;
 const poap7 = `${origin}/poaps/poap7.png`;
 const poap8 = `${origin}/poaps/poap8.png`;
+const poapLogo = `${origin}/poapLogo.png`;
 
 export const Poaps = () => {
   return (
     <Stack p={'25px'}>
-      <Text fontWeight={700} fontSize={'18px'} mb={'23px'} display={'flex'}><PoapIcon /> POAPs</Text>
+      <Text fontWeight={700} fontSize={'18px'} mb={'23px'} display={'flex'}><Image alt={'poap logo'} src={poapLogo} w={'31px'} h={'31px'}/> POAPs</Text>
       <SimpleGrid columns={3} spacing={5} alignSelf={'flex-start'}>
         <Box   height={"108px"}
           width={"108px"}
