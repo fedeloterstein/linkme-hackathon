@@ -24,7 +24,8 @@ const origin = typeof window === "undefined" ? "" : window.location.origin;
 const avatar = `${origin}/avatar.png`;
 const supporters = `${origin}/supporters.png`;
 const totalTips = `${origin}/totalTips.png`;
-export const Profile = () => {
+
+export const Profile = ({handleId}: any) => {
   const toast = useToast();
   const [loading, setloading] = useState(false);
   const { SendPushNotification } = useSendNotification();
@@ -44,7 +45,7 @@ export const Profile = () => {
         title: "🥳 New Donation",
         description: `${_from} donate to 👻${_to} 🤑 ${ethers.utils.formatEther(
           _amount
-        )} Matic 🌱`,
+        )} Matic`,
         status: "success",
         duration: 9000,
         isClosable: true,
@@ -104,7 +105,7 @@ export const Profile = () => {
           bgGradient="linear(to-r, rgba(255, 105, 45, 1), rgba(232, 86, 224, 1), rgba(77, 103, 250, 1))"
           bgClip={"text"}
         >
-          Juanma.me
+          {handleId}.me
         </Heading>
         <LinkIcon />
       </HStack>

@@ -5,7 +5,7 @@ import {
   Heading,
   HStack,
   Input,
-  Link,
+  Link as LinkC,
   Stack,
   Text,
   useToast,
@@ -22,8 +22,9 @@ import {
 import contractAbi from "../utils/contractABI.json";
 import { ethers } from "ethers";
 import { WalletIcon } from "@/assets/icons/Walleticon";
-import confetti from 'canvas-confetti';
+import confetti from "canvas-confetti";
 import { FooterHome } from "@/components/footer/FooterHome";
+import Link from "next/link";
 
 const origin = typeof window === "undefined" ? "" : window.location.origin;
 const bgImageDesktop = `${origin}/home-desktop.png`;
@@ -38,6 +39,7 @@ export default function Home() {
   const [claiming, setclaiming] = useState(false);
   const { openConnectModal } = useConnectModal();
   const { isConnected } = useAccount();
+  const [handleClaiming, sethandleClaiming] = useState<string>();
 
   const { write: writeRegister } = useContractWrite({
     mode: "recklesslyUnprepared",
@@ -66,6 +68,7 @@ export default function Home() {
     eventName: "NewRegisteredDomain",
     listener(_from, _domain, _amount: any) {
       setclaiming(false);
+      sethandleClaiming(handle);
       sethandle("");
       let msg = `The domain ${_domain} was registered with the address ${_from}`;
       toast({
@@ -78,7 +81,7 @@ export default function Home() {
       confetti({
         particleCount: 100,
         spread: 70,
-        origin: { y: 0.6 }
+        origin: { y: 0.6 },
       });
     },
   });
@@ -90,8 +93,6 @@ export default function Home() {
       setclaiming(true);
     }
   };
-
-  
 
   return (
     <>
@@ -174,35 +175,58 @@ export default function Home() {
               </HStack>
             )}
             {data && handle !== "" && handle.length >= 3 && (
-              <Stack     pt={10}>
-              <Button
+              <Stack pt={10}>
+                <Button
+                  onClick={onClickRegister}
+                  loadingText="Claiming"
+                  bgGradient={"linear(to-r, #FF692D, #E856E0, #4D67FA)"}
+                  borderRadius={"50px"}
+                  p={"0px 20px"}
+                  color={"white"}
+                  boxShadow={"0px 4px 20px 0px rgba(0, 0, 0, 0.25)"}
+                  isLoading={claiming}
+                >
+                  Claim
+                </Button>
+              </Stack>
+            )}
+          </>
+          {handleClaiming && (
+            <Stack pt={"50px"}>
+              <LinkC
+                as={Link}
                 onClick={onClickRegister}
-                loadingText="Claiming"
                 bgGradient={"linear(to-r, #FF692D, #E856E0, #4D67FA)"}
                 borderRadius={"50px"}
                 p={"0px 20px"}
                 color={"white"}
                 boxShadow={"0px 4px 20px 0px rgba(0, 0, 0, 0.25)"}
-                isLoading={claiming}
+                href={`/edit/${handleClaiming}`}
               >
-                Claim
-              </Button>
-              </Stack>
-            )}
-          </>
+                Edit your Profile
+              </LinkC>
+            </Stack>
+          )}
         </Stack>
         <HStack p={10} justify={"flex-end"}>
-          <Stack w={'159px'} h={'41px'} borderRadius={'100px'}  bgGradient="linear(to-r,  rgba(240, 248, 255, 0.79) 0%, rgba(232, 251, 247, 0.31) 57.44%, rgba(252, 254, 255, 0.57) )" boxShadow={"0px 4px 4px rgba(0, 0, 0, 0.25)"} justify={'center'} align={'center'}> 
-
-          <Link
-            isExternal
-            href="https://testnets.opensea.io/es/collection/linkme-2"
-            fontWeight={400}
-            fontSize={'16px'}
-            color={'white'}
+          <Stack
+            w={"159px"}
+            h={"41px"}
+            borderRadius={"100px"}
+            bgGradient="linear(to-r,  rgba(240, 248, 255, 0.79) 0%, rgba(232, 251, 247, 0.31) 57.44%, rgba(252, 254, 255, 0.57) )"
+            boxShadow={"0px 4px 4px rgba(0, 0, 0, 0.25)"}
+            justify={"center"}
+            align={"center"}
           >
-            View on OpenSea
-          </Link>
+            <LinkC
+              isExternal
+              href="https://testnets.opensea.io/es/collection/linkme-2"
+              fontWeight={400}
+              fontSize={"16px"}
+              color={"white"}
+            >
+              View on OpenSea
+            </LinkC>
           </Stack>
         </HStack>
         <FooterHome />

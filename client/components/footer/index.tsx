@@ -7,7 +7,7 @@ import {
   Button,
   Center,
   HStack,
-  Link,
+  Link as LinkC,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -19,14 +19,66 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import React from "react";
+import confetti from "canvas-confetti";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 
-export const Footer = () => {
+export const Footer = ({ isFull }: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [loading, setloading] = useState(true);
+  const router = useRouter();
+  const [handleId, sethandleId] = useState<any>("");
 
+  useEffect(() => {
+    if (router.isReady) {
+      const { handle } = router.query;
+      console.log("listo", handle);
+      sethandleId(handle);
+      setloading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.isReady]);
+
+  const shareConfetti = () => {
+    var duration = 5 * 1000;
+    var animationEnd = Date.now() + duration;
+    var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+    function randomInRange(min: any, max: any) {
+      return Math.random() * (max - min) + min;
+    }
+
+    const interval: any = setInterval(function () {
+      var timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
+
+      var particleCount = 50 * (timeLeft / duration);
+      // since particles fall down, start a bit higher than random
+      confetti(
+        Object.assign({}, defaults, {
+          particleCount,
+          origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+        })
+      );
+      confetti(
+        Object.assign({}, defaults, {
+          particleCount,
+          origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+        })
+      );
+    }, 250);
+  };
+
+  if (!isFull) {
+    return <HStack h={"118px"} justify={"flex-end"} gap={5} mr={5}></HStack>;
+  }
   return (
     <HStack h={"118px"} justify={"flex-end"} gap={5} mr={5}>
-      <ShareModal isOpen={isOpen} onClose={onClose} />
+      <ShareModal isOpen={isOpen} onClose={onClose} handleId={handleId} />
       <Button
         leftIcon={<ShareIcon />}
         border={"2px solid #E856E0"}
@@ -39,21 +91,28 @@ export const Footer = () => {
       >
         Share
       </Button>
-      <Button
-        leftIcon={<PublishIcon />}
+      <LinkC
+      href={`/${handleId}`}
+      display={'flex'}
+      h={'40px'}
+      alignItems={'center'}
+      gap={2}
+      fontWeight={700}
+      as={Link}
         bgGradient={"linear(to-r, #FF692D, #E856E0, #4D67FA)"}
         borderRadius={"50px"}
         p={"0px 20px"}
         color={"white"}
         boxShadow={"0px 4px 20px 0px rgba(0, 0, 0, 0.25)"}
+        onClick={shareConfetti}
       >
-        Publish
-      </Button>
+        <PublishIcon /> Publish
+      </LinkC>
     </HStack>
   );
 };
 
-const ShareModal = ({ onClose, isOpen }: any) => {
+const ShareModal = ({ onClose, isOpen, handleId }: any) => {
   const toast = useToast();
   const copyUrlProfile = () => {
     navigator.clipboard.writeText(`https://linkme-hackathon.vercel.app/juanma`);
@@ -105,17 +164,19 @@ const ShareModal = ({ onClose, isOpen }: any) => {
             borderRadius={"30px"}
           >
             <Text
-            fontWeight={600}
-            fontSize={'14px'}
+              fontWeight={600}
+              fontSize={"14px"}
               bgClip="text"
               bgGradient="linear(to-r, rgba(255, 105, 45, 1), rgba(232, 86, 224, 1), rgba(77, 103, 250, 1))"
             >
-              https://linkme-hackathon.vercel.app/juanma
+              https://linkme-hackathon.vercel.app/{handleId}
             </Text>
-            <CopyIcon color={'#4D67FA'}/>
+            <CopyIcon color={"#4D67FA"} />
           </HStack>
           <HStack justify={"space-between"} mb={"33px"}>
-            <Text fontWeight={400} fontSize={'14px'}>Unique NFT Avatar</Text>
+            <Text fontWeight={400} fontSize={"14px"}>
+              Unique NFT Avatar
+            </Text>
             <Stack
               w={"159px"}
               h={"41px"}
@@ -125,7 +186,7 @@ const ShareModal = ({ onClose, isOpen }: any) => {
               justify={"center"}
               align={"center"}
             >
-              <Link
+              <LinkC
                 isExternal
                 href="https://testnets.opensea.io/es/collection/linkme-2"
                 fontWeight={400}
@@ -133,7 +194,7 @@ const ShareModal = ({ onClose, isOpen }: any) => {
                 color={"white"}
               >
                 View on OpenSea
-              </Link>
+              </LinkC>
             </Stack>
           </HStack>
           <Button

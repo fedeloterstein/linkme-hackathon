@@ -4,12 +4,12 @@ import { Footer } from "../footer";
 import { Navbar } from "../navbar";
 
 
-export const Layout = ({children}: any) => {
+export const Layout = ({children, isFull}: any) => {
   return <Container maxW="100%" h={'100%'} bgColor={'black'}>
     <Stack m={'10px'}>
-    <Navbar />
+    <Navbar isFull={isFull}  />
     {children}
     </Stack>
-    <Footer />
+    <Footer isFull={isFull} />
     </Container>;
 };

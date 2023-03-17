@@ -13,8 +13,8 @@ const initialState: WorksState[] = [
   {
     id: uuid(),
     urlImage: "https://images.pexels.com/photos/57690/pexels-photo-57690.jpeg?auto=compress&cs=tinysrgb&w=600",
-    title: "Mi Portafolio",
-    description: "Mira mis diseños",
+    title: "My portfolio",
+    description: "Check the latest",
     urlLink: "https://ethglobal.com/",
   }
 ]

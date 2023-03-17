@@ -21,11 +21,12 @@ const bgProfile = `${origin}/bg-profile.png`;
 import { Spinner } from "@chakra-ui/react";
 import { BigLogo } from "@/assets/logos/BigLogo";
 import { useContractRead } from "wagmi";
-import contractAbi from "../utils/contractABI.json";
+import contractAbi from "../../utils/contractABI.json";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import SmallLogo from "@/assets/logos/SmallLogo";
 import XsLogo from "@/assets/logos/XsLogo";
+import confetti from "canvas-confetti";
 
 export default function Handle() {
   const [loading, setloading] = useState(true);
@@ -42,6 +43,8 @@ export default function Handle() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady]);
 
+
+ 
   const { data, isError, isLoading } = useContractRead({
     address: "0x47B52e28d9831d95c31b6C14c6fe569357D4E995",
     abi: contractAbi.abi,
@@ -95,11 +98,12 @@ export default function Handle() {
     );
   }
   return (
-    <Layout>
+    <Layout isFull>
       <Grid
         templateRows="repeat(2, 1fr)"
         templateColumns="repeat(12, 1fr)"
         h={"100%"}
+        border={"2px solid #E856E0"}
         borderRadius={"30px"}
         backgroundImage={bgProfile}
         bgRepeat="no-repeat"
@@ -144,3 +148,13 @@ export default function Handle() {
     </Layout>
   );
 }
+
+/**
+   <Stack border={'2px solid #E856E0'} m={'48px 5px 24px 5px'} w={'100%'} h={'100%'} borderRadius={'30px'}>
+        <Profile />
+        <FollowMe />
+        <Poaps />
+        <Works />
+        <CoolLinks />
+    </Stack>
+ */

@@ -22,7 +22,7 @@ import React from "react";
 const origin = typeof window === "undefined" ? "" : window.location.origin;
 const iphone = `${origin}/iphone.png`;
 
-export const Navbar = () => {
+export const Navbar = ({isFull}: any) => {
   const { openConnectModal } = useConnectModal();
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
@@ -31,6 +31,7 @@ export const Navbar = () => {
         <SmallLogo />
       </Link>
       <HStack>
+        {isFull && (
         <IconButton
           aria-label="Push Protocol"
           icon={<PushIcon />}
@@ -40,6 +41,7 @@ export const Navbar = () => {
           boxShadow={"0px 4px 20px 0px rgba(0, 0, 0, 0.25)"}
           onClick={onOpen}
         />
+        )}
         <NavBarModal isOpen={isOpen} onClose={onClose} />
         <Button
           onClick={openConnectModal}
