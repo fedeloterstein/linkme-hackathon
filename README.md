@@ -18,7 +18,7 @@ With Linkme, influencers, artists, brands, or entrepreneurs can create a unique 
 ```
 ### Install node modules
 ```bash
-  cd honestfil
+  cd linkme-hackathon
   yarn install
 ```
 
